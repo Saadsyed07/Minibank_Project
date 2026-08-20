@@ -1,0 +1,334 @@
+﻿@{
+    ViewData["Title"] = "MiniBank";
+}
+
+<style>
+    body {
+        background: #f5f7fa;
+    }
+
+    .bank-hero {
+        min-height: 82vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .hero-content {
+        padding: 50px 0;
+    }
+
+    .bank-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #e9f2ff;
+        color: #0d6efd;
+        padding: 8px 16px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .hero-title {
+        font-size: 3.2rem;
+        font-weight: 700;
+        line-height: 1.15;
+        color: #212529;
+        margin-bottom: 20px;
+    }
+
+        .hero-title span {
+            color: #0d6efd;
+        }
+
+    .hero-text {
+        color: #6c757d;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        max-width: 540px;
+        margin-bottom: 30px;
+    }
+
+    .hero-buttons .btn {
+        padding: 12px 28px;
+        border-radius: 9px;
+        font-weight: 600;
+        margin-right: 8px;
+        margin-bottom: 8px;
+    }
+
+    .bank-visual {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bank-card {
+        width: 360px;
+        min-height: 230px;
+        background: linear-gradient(135deg, #0d6efd, #084298);
+        border-radius: 20px;
+        padding: 30px;
+        color: white;
+        box-shadow: 0 20px 40px rgba(13, 110, 253, 0.25);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .bank-card::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            right: -60px;
+            bottom: -70px;
+        }
+
+    .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 45px;
+    }
+
+    .card-brand {
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .card-chip {
+        width: 42px;
+        height: 32px;
+        background: #e8c46a;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #856404;
+    }
+
+    .card-number {
+        font-size: 21px;
+        letter-spacing: 3px;
+        margin-bottom: 25px;
+    }
+
+    .card-bottom {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+    }
+
+    .features {
+        padding: 35px 0;
+        border-top: 1px solid #e9ecef;
+    }
+
+    .feature {
+        text-align: center;
+        padding: 15px;
+    }
+
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+        margin: 0 auto 15px;
+        background: #e9f2ff;
+        color: #0d6efd;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+    }
+
+    .feature h5 {
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+
+    .feature p {
+        color: #6c757d;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    @@media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.4rem;
+        }
+
+        .bank-visual {
+            margin-top: 35px;
+        }
+
+        .bank-card {
+            width: 100%;
+            max-width: 360px;
+        }
+    }
+</style>
+
+
+<div class="container">
+
+    <!-- Hero Section -->
+
+    <section class="bank-hero">
+
+        <div class="row align-items-center w-100">
+
+            <!-- Left Content -->
+
+            <div class="col-lg-6 hero-content">
+
+                <div class="bank-badge">
+                    <i class="bi bi-shield-check"></i>
+                    Simple & Secure Banking
+                </div>
+
+                <h1 class="hero-title">
+                    Your money,
+                    <br />
+                    <span>your control.</span>
+                </h1>
+
+                <p class="hero-text">
+                    Welcome to MiniBank — a simple banking platform
+                    where you can manage your account, check your
+                    balance, deposit money, withdraw funds and
+                    transfer money securely.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a asp-controller="Home"
+                       asp-action="Login"
+                       class="btn btn-primary">
+
+                        <i class="bi bi-box-arrow-in-right me-2"></i>
+                        Login
+
+                    </a>
+
+                    <a asp-controller="Home"
+                       asp-action="Register"
+                       class="btn btn-outline-primary">
+
+                        <i class="bi bi-person-plus me-2"></i>
+                        Open an Account
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Bank Card -->
+
+            <div class="col-lg-6 bank-visual">
+
+                <div class="bank-card">
+
+                    <div class="card-top">
+
+                        <div class="card-brand">
+                            <i class="bi bi-bank2 me-2"></i>
+                            MiniBank
+                        </div>
+
+                        <div class="card-chip">
+                            <i class="bi bi-wifi"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="card-number">
+                        •••• •••• •••• 0001
+                    </div>
+
+                    <div class="card-bottom">
+
+                        <div>
+                            ACCOUNT HOLDER
+                            <br />
+                            <strong>MINIBANK USER</strong>
+                        </div>
+
+                        <div>
+                            <i class="bi bi-credit-card-2-front fs-4"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Features -->
+
+    <section class="features">
+
+        <div class="row">
+
+            <div class="col-md-4 feature">
+
+                <div class="feature-icon">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+
+                <h5>Secure Account</h5>
+
+                <p>
+                    Secure login and session-based
+                    access to your account.
+                </p>
+
+            </div>
+
+
+            <div class="col-md-4 feature">
+
+                <div class="feature-icon">
+                    <i class="bi bi-wallet2"></i>
+                </div>
+
+                <h5>Manage Your Money</h5>
+
+                <p>
+                    Deposit and withdraw money
+                    directly from your dashboard.
+                </p>
+
+            </div>
+
+
+            <div class="col-md-4 feature">
+
+                <div class="feature-icon">
+                    <i class="bi bi-arrow-left-right"></i>
+                </div>
+
+                <h5>Easy Transfers</h5>
+
+                <p>
+                    Transfer money between
+                    MiniBank accounts easily.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>

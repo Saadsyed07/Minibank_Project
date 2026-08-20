@@ -1,0 +1,219 @@
+@model LoginForm.Models.User
+
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<style>
+    body {
+        background: #f5f7fa;
+    }
+
+    .register-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .register-card {
+        width: 100%;
+        max-width: 450px;
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .register-icon {
+        width: 55px;
+        height: 55px;
+        margin: 0 auto 20px;
+        background: #e9f2ff;
+        color: #0d6efd;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+
+    .register-title {
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .register-subtitle {
+        text-align: center;
+        color: #6c757d;
+        margin-bottom: 30px;
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .form-control {
+        padding: 11px 14px;
+        border-radius: 8px;
+    }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+        }
+
+    .register-btn {
+        width: 100%;
+        padding: 11px;
+        border-radius: 8px;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    .login-text {
+        text-align: center;
+        margin-top: 25px;
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+        .login-text a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+</style>
+
+
+<div class="register-container">
+
+    <div class="register-card">
+
+        <!-- Icon -->
+        <div class="register-icon">
+            <i class="bi bi-person-plus"></i>
+        </div>
+
+        <!-- Heading -->
+        <h2 class="register-title">Create Account</h2>
+
+        <p class="register-subtitle">
+            Create your account to get started
+        </p>
+
+
+        <form asp-action="Register" method="post">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3">
+            </div>
+
+
+            <!-- Name -->
+            <div class="mb-3">
+
+                <label asp-for="Name" class="form-label">
+                    Name
+                </label>
+
+                <input asp-for="Name"
+                       class="form-control"
+                       placeholder="Enter your name" />
+
+                <span asp-validation-for="Name"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Gender -->
+            <div class="mb-3">
+
+                <label asp-for="Gender" class="form-label">
+                    Gender
+                </label>
+
+                <select asp-for="Gender" class="form-select">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <span asp-validation-for="Gender"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Email -->
+            <div class="mb-3">
+
+                <label asp-for="Email" class="form-label">
+                    Email
+                </label>
+
+                <input asp-for="Email"
+                       class="form-control"
+                       placeholder="Enter your email" />
+
+                <span asp-validation-for="Email"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Password -->
+            <div class="mb-4">
+
+                <label asp-for="Password" class="form-label">
+                    Password
+                </label>
+
+                <input asp-for="Password"
+                       type="password"
+                       class="form-control"
+                       placeholder="Create a password" />
+
+                <span asp-validation-for="Password"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Register -->
+            <button type="submit"
+                    class="btn btn-primary register-btn">
+                Create Account
+            </button>
+
+        </form>
+
+
+        <!-- Login Link -->
+        <div class="login-text">
+
+            Already have an account?
+
+            <a asp-controller="Home"
+               asp-action="Login">
+                Login
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

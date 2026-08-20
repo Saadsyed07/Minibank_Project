@@ -1,0 +1,219 @@
+﻿@{
+    ViewData["Title"] = "Transfer Money";
+}
+
+<style>
+    body {
+        background: #f5f7fa;
+    }
+
+    .transfer-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .transfer-card {
+        width: 100%;
+        max-width: 450px;
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .transfer-icon {
+        width: 55px;
+        height: 55px;
+        margin: 0 auto 20px;
+        background: #e9f2ff;
+        color: #0d6efd;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+
+    .transfer-title {
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .transfer-subtitle {
+        text-align: center;
+        color: #6c757d;
+        margin-bottom: 25px;
+    }
+
+    .balance-box {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .balance-label {
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    .balance {
+        font-size: 24px;
+        font-weight: 700;
+        color: #0d6efd;
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .form-control {
+        padding: 11px;
+        border-radius: 8px;
+    }
+
+    .transfer-btn {
+        width: 100%;
+        padding: 11px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #6c757d;
+    }
+
+    .account-info {
+        font-size: 13px;
+        color: #6c757d;
+        margin-top: 6px;
+    }
+</style>
+
+
+<div class="transfer-container">
+
+    <div class="transfer-card">
+
+        <!-- Icon -->
+
+        <div class="transfer-icon">
+            <i class="bi bi-arrow-left-right"></i>
+        </div>
+
+
+        <!-- Heading -->
+
+        <h2 class="transfer-title">
+            Transfer Money
+        </h2>
+
+        <p class="transfer-subtitle">
+            Send money to another MiniBank account
+        </p>
+
+
+        <!-- Current Balance -->
+
+        <div class="balance-box">
+
+            <div class="balance-label">
+                Available Balance
+            </div>
+
+            <div class="balance">
+                ₹@ViewBag.Balance.ToString("N2")
+            </div>
+
+        </div>
+
+
+        <!-- Error Message -->
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-danger text-center">
+                <i class="bi bi-exclamation-circle me-2"></i>
+                @ViewBag.Message
+            </div>
+        }
+
+
+        <!-- Transfer Form -->
+
+        <form asp-action="Transfer" method="post">
+
+            <!-- Recipient Account -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Recipient Account Number
+                </label>
+
+                <input type="text"
+                       name="accountNumber"
+                       class="form-control"
+                       placeholder="Enter account number"
+                       required />
+
+                <div class="account-info">
+                    Enter the account number of the person you want to pay.
+                </div>
+
+            </div>
+
+
+            <!-- Amount -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Amount
+                </label>
+
+                <input type="number"
+                       name="amount"
+                       class="form-control"
+                       placeholder="Enter amount"
+                       min="0.01"
+                       step="0.01"
+                       required />
+
+            </div>
+
+
+            <!-- Submit -->
+
+            <button type="submit"
+                    class="btn btn-primary transfer-btn">
+
+                <i class="bi bi-send me-2"></i>
+
+                Transfer Money
+
+            </button>
+
+        </form>
+
+
+        <!-- Back -->
+
+        <a asp-controller="Home"
+           asp-action="Dashboard"
+           class="back-link">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>

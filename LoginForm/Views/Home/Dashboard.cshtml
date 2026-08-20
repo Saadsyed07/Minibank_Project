@@ -1,0 +1,637 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<style>
+
+    body {
+        background: #f5f7fa;
+    }
+
+    .dashboard {
+        padding: 25px 0 40px;
+    }
+
+    /* Header */
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+        .dashboard-header h3 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .dashboard-header p {
+            color: #6c757d;
+            margin: 0;
+            font-size: 14px;
+        }
+
+    .logout-btn {
+        border-radius: 7px;
+        padding: 8px 18px;
+    }
+
+
+    /* Cards */
+
+    .balance-card,
+    .account-card,
+    .action-card,
+    .activity-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+    }
+
+
+    /* Balance */
+
+    .balance-card {
+        background: #0d6efd;
+        color: white;
+        padding: 25px;
+        min-height: 175px;
+    }
+
+    .balance-label {
+        font-size: 14px;
+        opacity: .85;
+    }
+
+    .balance {
+        font-size: 32px;
+        font-weight: 600;
+        margin: 8px 0 20px;
+    }
+
+    .account-number-small {
+        font-size: 13px;
+        opacity: .85;
+    }
+
+
+    /* Account Details */
+
+    .account-card {
+        padding: 22px;
+        min-height: 175px;
+    }
+
+    .card-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .account-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+        font-size: 14px;
+    }
+
+        .account-row:last-child {
+            border-bottom: none;
+        }
+
+    .account-label {
+        color: #6c757d;
+    }
+
+    .account-value {
+        font-weight: 500;
+    }
+
+
+    /* Quick Actions */
+
+    .quick-actions {
+        margin-top: 25px;
+    }
+
+    .section-heading {
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    .action-card {
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #212529;
+        transition: .15s;
+    }
+
+        .action-card:hover {
+            border-color: #0d6efd;
+            color: #212529;
+        }
+
+    .action-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 13px;
+        font-size: 19px;
+    }
+
+    .deposit {
+        background: #e9f7ef;
+        color: #198754;
+    }
+
+    .withdraw {
+        background: #fff3cd;
+        color: #997404;
+    }
+
+    .transfer {
+        background: #e9f2ff;
+        color: #0d6efd;
+    }
+
+    .action-title {
+        font-weight: 600;
+        font-size: 15px;
+        margin-bottom: 2px;
+    }
+
+    .action-description {
+        color: #6c757d;
+        font-size: 12px;
+        margin: 0;
+    }
+
+
+    /* Activity */
+
+    .activity-card {
+        margin-top: 25px;
+        padding: 20px;
+    }
+
+    .empty-activity {
+        text-align: center;
+        padding: 12px;
+        color: #6c757d;
+        font-size: 13px;
+    }
+
+    .empty-icon {
+        color: #adb5bd;
+        font-size: 22px;
+        margin-bottom: 3px;
+    }
+
+
+    /* Alerts */
+
+    .alert {
+        border-radius: 7px;
+        border: none;
+    }
+
+
+    /* Mobile */
+
+    @@media (max-width: 768px) {
+
+        .dashboard {
+            padding-top: 20px;
+        }
+
+        .dashboard-header {
+            align-items: flex-start;
+        }
+
+            .dashboard-header h3 {
+                font-size: 20px;
+            }
+
+        .logout-btn {
+            padding: 7px 12px;
+        }
+
+        .account-card {
+            margin-top: 0;
+        }
+    }
+
+</style>
+<div class="container dashboard">
+
+    <!-- HEADER -->
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <h3>
+                Welcome back,
+                <span class="text-primary">@ViewBag.mySession</span> 👋
+            </h3>
+
+            <p>
+                Here's your MiniBank account overview.
+            </p>
+
+        </div>
+
+
+        <a asp-controller="Home"
+           asp-action="Logout"
+           class="btn btn-outline-danger logout-btn">
+
+            <i class="bi bi-box-arrow-right me-1"></i>
+            Logout
+
+        </a>
+
+    </div>
+
+
+    <!-- SUCCESS MESSAGES -->
+    @if (TempData["Success"] != null)
+    {
+        <div id="successMessage"
+             class="alert alert-success alert-dismissible fade show"
+             role="alert">
+
+            <i class="bi bi-check-circle me-2"></i>
+            ₹@TempData["Success"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+
+        </div>
+    }
+
+
+    @if (TempData["WithdrawSuccess"] != null)
+    {
+        <div id="withdrawMessage"
+             class="alert alert-success alert-dismissible fade show"
+             role="alert">
+
+            <i class="bi bi-check-circle me-2"></i>
+            ₹@TempData["WithdrawSuccess"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+
+        </div>
+    }
+
+
+    @if (TempData["TransferSuccess"] != null)
+    {
+        <div id="transferMessage"
+             class="alert alert-success alert-dismissible fade show"
+             role="alert">
+
+            <i class="bi bi-check-circle me-2"></i>
+            ₹@TempData["TransferSuccess"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+
+        </div>
+    }
+
+
+    <!-- BALANCE + ACCOUNT DETAILS -->
+
+    <div class="row g-3">
+
+        <div class="col-lg-8">
+
+            <div class="balance-card">
+
+                <div class="balance-label">
+                    Available Balance
+                </div>
+
+                <div class="balance">
+                    ₹ @ViewBag.Balance.ToString("N2")
+                </div>
+
+                <div class="account-number-small">
+                    <i class="bi bi-credit-card me-1"></i>
+                    Account Number: @ViewBag.AccountNumber
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-4">
+
+            <div class="account-card">
+
+                <div class="card-title">
+
+                    <i class="bi bi-person-circle text-primary me-2"></i>
+
+                    Account Details
+
+                </div>
+
+
+                <div class="account-row">
+
+                    <span class="account-label">
+                        Name
+                    </span>
+
+                    <span class="account-value">
+                        @ViewBag.mySession
+                    </span>
+
+                </div>
+
+
+                <div class="account-row">
+
+                    <span class="account-label">
+                        Account No.
+                    </span>
+
+                    <span class="account-value">
+                        @ViewBag.AccountNumber
+                    </span>
+
+                </div>
+
+
+                <div class="account-row">
+
+                    <span class="account-label">
+                        Status
+                    </span>
+
+                    <span class="account-value text-success">
+
+                        <i class="bi bi-check-circle me-1"></i>
+                        Active
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="quick-actions">
+
+        <div class="section-heading">
+            Quick Actions
+        </div>
+
+
+        <div class="row g-3">
+
+
+            <!-- DEPOSIT -->
+
+            <div class="col-md-4">
+
+                <a asp-controller="Home"
+                   asp-action="Deposit"
+                   class="action-card">
+
+                    <div class="action-icon deposit">
+
+                        <i class="bi bi-plus-lg"></i>
+
+                    </div>
+
+                    <div>
+
+                        <div class="action-title">
+                            Deposit Money
+                        </div>
+
+                        <p class="action-description">
+                            Add money to your account
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- WITHDRAW -->
+
+            <div class="col-md-4">
+
+                <a asp-controller="Home"
+                   asp-action="Withdraw"
+                   class="action-card">
+
+                    <div class="action-icon withdraw">
+
+                        <i class="bi bi-dash-lg"></i>
+
+                    </div>
+
+                    <div>
+
+                        <div class="action-title">
+                            Withdraw Money
+                        </div>
+
+                        <p class="action-description">
+                            Withdraw from your account
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- TRANSFER -->
+
+            <div class="col-md-4">
+
+                <a asp-controller="Home"
+                   asp-action="Transfer"
+                   class="action-card">
+
+                    <div class="action-icon transfer">
+
+                        <i class="bi bi-arrow-left-right"></i>
+
+                    </div>
+
+                    <div>
+
+                        <div class="action-title">
+                            Transfer Money
+                        </div>
+
+                        <p class="action-description">
+                            Send money to another account
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RECENT ACTIVITY -->
+
+    <div class="card mt-4">
+
+        <div class="card-body">
+
+            <h5>
+                Recent Activity
+            </h5>
+
+            <hr />
+
+            @if (ViewBag.Transactions != null &&
+                        ViewBag.Transactions.Count > 0)
+            {
+                foreach (var transaction in ViewBag.Transactions)
+                {
+                    <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+
+                        <div>
+
+                            @if (transaction.Type == "Deposit")
+                            {
+                                <i class="bi bi-plus-circle text-success me-2"></i>
+                            }
+                            else if (transaction.Type == "Withdrawal")
+                            {
+                                <i class="bi bi-dash-circle text-danger me-2"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-arrow-left-right text-primary me-2"></i>
+                            }
+
+                            <strong>
+                                @transaction.Type
+                            </strong>
+
+                            <br />
+
+                            <small class="text-muted ms-4">
+                                @transaction.Description
+                            </small>
+
+                        </div>
+
+
+                        <div class="text-end">
+
+                            @if (transaction.Type == "Deposit")
+                            {
+                                <span class="text-success fw-bold">
+                                    + ₹@transaction.Amount.ToString("N2")
+                                </span>
+                            }
+                            else if (transaction.Type == "Transfer" &&
+                            transaction.Description.StartsWith("Transfer from"))
+                            {
+                                <span class="text-success fw-bold">
+                                    + ₹@transaction.Amount.ToString("N2")
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="text-danger fw-bold">
+                                    - ₹@transaction.Amount.ToString("N2")
+                                </span>
+                            }
+
+                            <br />
+
+                            <small class="text-muted">
+                                @transaction.TransactionDate.ToString("dd MMM yyyy, hh:mm tt")
+                            </small>
+
+                        </div>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted text-center mb-0">
+                    No recent transactions.
+                </p>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- AUTO HIDE SUCCESS MESSAGES -->
+
+<script>
+
+    setTimeout(function () {
+
+        const ids = [
+            "successMessage",
+            "withdrawMessage",
+            "transferMessage"
+        ];
+
+        ids.forEach(function (id) {
+
+            const message = document.getElementById(id);
+
+            if (message) {
+
+                const alert =
+                    bootstrap.Alert.getOrCreateInstance(message);
+
+                alert.close();
+
+            }
+
+        });
+
+    }, 3000);
+
+</script>

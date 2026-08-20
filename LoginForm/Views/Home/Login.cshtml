@@ -1,0 +1,199 @@
+@model LoginForm.Models.User
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    body {
+        background: #f5f7fa;
+    }
+
+    .login-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 420px;
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .login-icon {
+        width: 55px;
+        height: 55px;
+        margin: 0 auto 20px;
+        background: #e9f2ff;
+        color: #0d6efd;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+
+    .login-title {
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .login-subtitle {
+        text-align: center;
+        color: #6c757d;
+        margin-bottom: 30px;
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .form-control {
+        padding: 11px 14px;
+        border-radius: 8px;
+    }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+        }
+
+    .login-btn {
+        width: 100%;
+        padding: 11px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .register-text {
+        text-align: center;
+        margin-top: 25px;
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+        .register-text a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+    .alert {
+        border-radius: 8px;
+        font-size: 14px;
+    }
+</style>
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <!-- Icon -->
+        <div class="login-icon">
+            <i class="bi bi-person-lock"></i>
+        </div>
+
+        <!-- Heading -->
+        <h2 class="login-title">Welcome Back</h2>
+
+        <p class="login-subtitle">
+            Login to access your dashboard
+        </p>
+
+
+        <!-- Error Message -->
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-danger">
+                <i class="bi bi-exclamation-circle me-1"></i>
+                @ViewBag.Message
+            </div>
+        }
+
+        <!-- Success Message -->
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">
+                <i class="bi bi-check-circle me-1"></i>
+                @TempData["Success"]
+            </div>
+        }
+
+
+        <form asp-action="Login" method="post">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3">
+            </div>
+
+
+            <!-- Email -->
+            <div class="mb-3">
+
+                <label asp-for="Email" class="form-label">
+                    Email
+                </label>
+
+                <input asp-for="Email"
+                       class="form-control"
+                       placeholder="Enter your email" />
+
+                <span asp-validation-for="Email"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Password -->
+            <div class="mb-4">
+
+                <label asp-for="Password" class="form-label">
+                    Password
+                </label>
+
+                <input asp-for="Password"
+                       type="password"
+                       class="form-control"
+                       placeholder="Enter your password" />
+
+                <span asp-validation-for="Password"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Login -->
+            <button type="submit" class="btn btn-primary login-btn">
+                Login
+            </button>
+
+        </form>
+
+
+        <div class="register-text">
+
+            Don't have an account?
+
+            <a asp-controller="Home"
+               asp-action="Register">
+                Sign Up
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
