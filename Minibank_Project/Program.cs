@@ -22,6 +22,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 //this the the dummy comment to test the git hub
+//changed the folder name to Minibank_Project
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
