@@ -21,6 +21,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+//this the the dummy comment to test the git hub
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
